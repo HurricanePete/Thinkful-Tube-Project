@@ -4,8 +4,8 @@ var YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 var RESULT_HTML_TEMPLATE = (
   '<div class="result-panes">' +
     '<a class="js-result-link" href="" target="_blank"><img class="js-result-thumb" src="" target="_blank"></img></a>' +
-    //'<p>Number of watchers: <span class="js-watchers-count"></span></p>' + 
-    //'<p>Number of open issues: <span class="js-issues-count"></span></p>' +
+    '<p><span class="js-video-title"></span></p>' + 
+    '<a class="js-channel-link" href=" target="_blank"><span class="js-channel-title"></span></a>' +
   '</div>'
 );
 
@@ -28,11 +28,13 @@ function getDataFromApi(searchTerm, callback) {
 
 function renderResult(result) {
   var youtubeWatch = 'https://www.youtube.com/watch?v='
+  var channelLink = 'https://www.youtube.com/channel/'
   var template = $(RESULT_HTML_TEMPLATE);
   template.find(".js-result-link").attr("href", youtubeWatch + result.id.videoId);
   template.find(".js-result-thumb").attr("src", result.snippet.thumbnails.default.url);
-  //template.find(".js-watchers-count").text(result.watchers_count);
-  //template.find(".js-issues-count").text(result.open_issues);
+  template.find(".js-video-title").text(result.snippet.title);
+  template.find(".js-channel-link").attr("href", channelLink + result.snippet.channelId);
+  template.find(".js-channel-title").text(result.snippet.channelTitle);
   return template;
 }
 
