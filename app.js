@@ -5,7 +5,7 @@ var RESULT_HTML_TEMPLATE = (
   '<div class="result-panes">' +
     '<a class="js-result-link" href="" target="_blank"><img class="js-result-thumb" src="" target="_blank"></img></a>' +
     '<p><span class="js-video-title"></span></p>' + 
-    '<a class="js-channel-link" href=" target="_blank"><span class="js-channel-title"></span></a>' +
+    '<a class="js-channel-link" href="" target="_blank"><span class="js-channel-title"></span></a>' +
   '</div>'
 );
 
