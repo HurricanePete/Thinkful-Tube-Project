@@ -9,6 +9,10 @@ var RESULT_HTML_TEMPLATE = (
   '</div>'
 );
 
+var RESULT_NAV_TEMPLATE = (
+  '<input class="js-nav-prev" type="button" onclick="" value="Previous Page"/><input class="js-nav-next" type="button" onclick="" value="Next Page"/>'
+  );
+
 function getDataFromApi(searchTerm, callback) {
   var settings = {
     url: YOUTUBE_SEARCH_URL,
@@ -27,8 +31,8 @@ function getDataFromApi(searchTerm, callback) {
 
 
 function renderResult(result) {
-  var youtubeWatch = 'https://www.youtube.com/watch?v='
-  var channelLink = 'https://www.youtube.com/channel/'
+  var youtubeWatch = 'https://www.youtube.com/watch?v=';
+  var channelLink = 'https://www.youtube.com/channel/';
   var template = $(RESULT_HTML_TEMPLATE);
   template.find(".js-result-link").attr("href", youtubeWatch + result.id.videoId);
   template.find(".js-result-thumb").attr("src", result.snippet.thumbnails.default.url);
@@ -38,12 +42,26 @@ function renderResult(result) {
   return template;
 }
 
+//function  renderNav(data) {
+  //var navPrefix = "location.href='https://www.googleapis.com/youtube/v3/search?pageToken=";
+  //var navSuffix = "&part=snippet&key=AIzaSyBIT_ulhAEbygGAVVf942R-t8o1e87OaGU&q=thinkful%20in:name&page=1&per_page=5'";
+  //var template = $(RESULT_NAV_TEMPLATE);
+  //template.find(".js-nav-prev").attr("onclick", navPrefix + data.prevPageToken + navSuffix);
+  //template.find(".js-nav-next").attr("onclick", navPrefix + data.nextPageToken + navSuffix);
+  //return template;
+//}
+
 function displayYouTubeSearchData(data) {
   var results = data.items.map(function(item, index) {
     return renderResult(item);
   });
   $('.js-search-results').html(results);
+  //$('.js-nav').html(renderNav(data));
 }
+
+//function  displayNav (data) {
+  //$('.js-nav').html(renderNav());
+//}
 
 function watchSubmit() {
   $('.js-search-form').submit(function(event) {
@@ -53,8 +71,16 @@ function watchSubmit() {
     // clear out the input
     queryTarget.val("");
     getDataFromApi(query, displayYouTubeSearchData);
+    //displayNav();
   });
 }
+
+//function navSubmit () {
+  //var nextPageLink = 
+  //$('.js-nav-next').onclick(function() {
+    //window.location= renderNav()
+  //}
+//}
 
 $(watchSubmit);
 
